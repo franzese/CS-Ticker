@@ -4,6 +4,7 @@
 $pink: #ff007e;
 $lime: #afff93;
 $oaf: #00aaff;
+$gray: #4f4f4f;
 
 // globals
 $borderRadius: 8px;
@@ -18,6 +19,7 @@ body {
     overflow-x: hidden;
     font-family: 'Roboto Mono', monospace;
     font-size: 10px;
+    color: $gray;
 
     * {
         box-sizing: border-box;
@@ -39,4 +41,9 @@ input,
 button {
     font-family: 'BioRhyme', serif;
     font-weight: 700;
+}
+
+h1 {
+    font-size: 6.4rem;
+    text-transform: uppercase;
 }
