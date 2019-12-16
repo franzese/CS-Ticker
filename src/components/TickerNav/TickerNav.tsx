@@ -1,6 +1,7 @@
 import * as React from 'react';
+import TickerButton, { ButtonTypes } from 'src/components/TickerButton/TickerButton';
 
-const styles = require('./TickerNav.module.scss')['tickerHeader'];
+const styles = require('./TickerNav.module.scss');
 
 export enum NavTypes {
     home = 'home',
@@ -15,7 +16,15 @@ interface Props {
 }
 
 export const TickerNav = ({ navType = NavTypes.home, children }: Props) => {
-    return <header className={styles}>{children}</header>;
+    return (
+        <header className={styles['tickerHeader']}>
+            <div className={styles['inner']}>
+                <TickerButton buttonType={ButtonTypes.link} link={'/'}>
+                    Back
+                </TickerButton>
+            </div>
+        </header>
+    );
 };
 
 export default TickerNav;

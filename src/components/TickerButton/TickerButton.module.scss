@@ -6,6 +6,7 @@ $buttonHoverBackground: $oaf;
 $buttonActiveBackground: $pink;
 $fontWeight: 500;
 
+.tickerButtonLink,
 .tickerButton,
 .tickerButtonDropdown {
     border-radius: $borderRadius;
@@ -18,9 +19,13 @@ $fontWeight: 500;
     font-size: $inputFontSize;
     font-weight: $fontWeight;
     border: none;
-    padding: 0 3rem;
     overflow: hidden;
     cursor: pointer;
+
+    > * {
+        padding: 0 3rem;
+    }
+
     &:hover {
         transform: scale(1);
     }
@@ -56,5 +61,14 @@ $fontWeight: 500;
     }
     100% {
         transform: scale(5);
+    }
+}
+
+.tickerButtonLink {
+    a {
+        color: $buttonColor;
+        &:hover {
+            text-decoration: none;
+        }
     }
 }

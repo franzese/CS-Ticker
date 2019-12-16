@@ -5,6 +5,7 @@ const styles = require('./TickerButton.module.scss');
 export enum ButtonTypes {
     button = 'tickerButton',
     dropdown = 'tickerButtonDropdown',
+    link = 'tickerButtonLink',
 }
 
 interface Props {
@@ -12,6 +13,8 @@ interface Props {
     buttonType?: ButtonTypes;
     /** Children inside the button */
     children: React.ReactNode;
+    /** Children inside the button */
+    link?: string;
     /** Button disabled state */
     isDisabled?: boolean;
     /** onClick behavior from parent to be used in @method handleClick */
