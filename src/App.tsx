@@ -1,6 +1,5 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
-import logo from 'src/assets/logo.svg';
 import TickerButton, {
   ButtonTypes
 } from 'src/components/TickerButton/TickerButton';
@@ -8,48 +7,54 @@ import TickerNav, { NavTypes } from 'src/components/TickerNav/TickerNav';
 import TickerWrap from 'src/components/TickerWrap/TickerWrap';
 import TickerList from 'src/components/TickerList/TickerList';
 
-const Home = () => (
+function Home() {
+  return (
     <>
-        <TickerNav navType={NavTypes.home}></TickerNav>
-        <TickerWrap>
-            <h1>Stocks</h1>
-            <TickerButton buttonType={ButtonTypes.button}>Sort</TickerButton>
-      <TickerList />
-        </TickerWrap>
+      <TickerNav navType={NavTypes.home} />
+      <TickerWrap>
+        <h1>Stocks</h1>
+        <TickerButton buttonType={ButtonTypes.button}>Sort</TickerButton>
+        <TickerList />
+      </TickerWrap>
     </>
-);
+  );
+}
 
-const Details = () => (
+function Details(props) {
+  return (
     <>
-        <TickerNav navType={NavTypes.details}></TickerNav>
-        <TickerWrap>
-            <h1>AAPL</h1>
-        </TickerWrap>
+      <TickerNav navType={NavTypes.details} />
+      <TickerWrap>
+        <TickerList cusip={props.match.params['cusip']} />
+      </TickerWrap>
     </>
-);
+  );
+}
 
-const FourOhFour = () => (
+function FourOhFour(props) {
+  return (
     <>
-        <TickerNav navType={NavTypes.details}></TickerNav>
-        <TickerWrap>
-            <h1>Sorry, that stock was not found</h1>
-            <TickerButton buttonType={ButtonTypes.link}>
-                <Link to="/">Back</Link>
-            </TickerButton>
-        </TickerWrap>
+      <TickerNav navType={NavTypes.details} />
+      <TickerWrap>
+        <h1>Sorry, that stock was not found</h1>
+        <TickerButton buttonType={ButtonTypes.link}>
+          <Link to="/">Back</Link>
+        </TickerButton>
+      </TickerWrap>
     </>
-);
+  );
+}
 
 function App() {
-    return (
-        <BrowserRouter>
-            <Switch>
-                <Route path="/" exact component={Home} />
-                <Route path="/not-found" exact component={FourOhFour} />
-                <Route path="/:cusip" component={Details} />
-            </Switch>
-        </BrowserRouter>
-    );
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path="/" exact component={Home} />
+        <Route path="/not-found" exact component={FourOhFour} />
+        <Route path="/:cusip" component={Details} />
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

@@ -1,19 +1,20 @@
-const BASE_URL = 'http://localhost:4000/';
+const BASE_URL = 'http://localhost:4000/stocks';
 
-interface Stocks {
-  limit?: number;
-  skip?: number;
-  sort?: string;
+export default async function getStockList(
+  limit: number,
+  skip: number = 0,
+  sort: string = 'name'
+) {
+  const url = BASE_URL.concat(
+    `?limit=${limit}&skip=${skip}&sort=${sort.trim()}&increasing=true`
+  );
+  const response = await fetch(url);
+  const data = await response.json();
+  return data;
 }
 
-export default async function getStockData({
-  limit = 20,
-  skip = 0,
-  sort = 'name'
-}: Stocks) {
-  const url = BASE_URL.concat(
-    `stocks?limit=${limit}&skip=${skip}&sort=${sort.trim()}&increasing=false`
-  );
+export async function getStock(cusip: string) {
+  const url = BASE_URL.concat(`/${cusip}`);
   const response = await fetch(url);
   const data = await response.json();
   return data;
