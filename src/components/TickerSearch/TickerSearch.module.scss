@@ -1,0 +1,19 @@
+@import 'src/styles/variables.scss';
+
+.tickerSearch {
+    input {
+        border-radius: $borderRadius;
+        height: $inputHeight;
+        font-size: $inputFontSize;
+        border: none;
+        padding: 0 1rem;
+        width: 100%;
+        max-width: 100rem;
+        outline: none;
+        text-transform: uppercase;
+
+        &::placeholder {
+            text-transform: none;
+        }
+    }
+}

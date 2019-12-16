@@ -1,9 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
 import logo from 'src/assets/logo.svg';
-import TickerButton, { ButtonTypes } from 'src/components/TickerButton/TickerButton';
+import TickerButton, {
+  ButtonTypes
+} from 'src/components/TickerButton/TickerButton';
 import TickerNav, { NavTypes } from 'src/components/TickerNav/TickerNav';
 import TickerWrap from 'src/components/TickerWrap/TickerWrap';
+import TickerList from 'src/components/TickerList/TickerList';
 
 const Home = () => (
     <>
@@ -11,6 +14,7 @@ const Home = () => (
         <TickerWrap>
             <h1>Stocks</h1>
             <TickerButton buttonType={ButtonTypes.button}>Sort</TickerButton>
+      <TickerList />
         </TickerWrap>
     </>
 );

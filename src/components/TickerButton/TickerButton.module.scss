@@ -6,69 +6,76 @@ $buttonHoverBackground: $oaf;
 $buttonActiveBackground: $pink;
 $fontWeight: 500;
 
-.tickerButtonLink,
 .tickerButton,
-.tickerButtonDropdown {
-    border-radius: $borderRadius;
-    background: $buttonBackground;
+.tickerButtonDropdown,
+.tickerButtonLink {
+  border-radius: $borderRadius;
+  background: $buttonBackground;
+  color: $buttonColor;
+  text-align: center;
+  vertical-align: middle;
+  line-height: $inputHeight;
+  height: $inputHeight;
+  min-width: 12rem;
+  font-size: $inputFontSize;
+  font-weight: $fontWeight;
+  border: none;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0 1rem;
+  display: inline-block;
+  appearance: none;
+
+  > * {
+    padding: 0 3rem;
+  }
+
+  &:hover {
+    transform: scale(1);
     color: $buttonColor;
-    text-align: center;
-    vertical-align: middle;
-    height: $inputHeight;
-    min-width: 12rem;
-    font-size: $inputFontSize;
-    font-weight: $fontWeight;
-    border: none;
-    overflow: hidden;
+    text-transform: none;
+    text-decoration: none;
+  }
+  &:hover:after {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12rem;
+    height: 12rem;
+    margin-left: -6rem;
+    margin-top: -6rem;
+    background: $buttonHoverBackground;
+    border-radius: 100%;
+    transform: scale(0);
+    z-index: -1;
+    animation: btn-ripple 0.83s cubic-bezier(0.26, 0, 0.14, 0.99) forwards;
     cursor: pointer;
-
-    > * {
-        padding: 0 3rem;
-    }
-
-    &:hover {
-        transform: scale(1);
-    }
-    &:hover:after {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 12rem;
-        height: 12rem;
-        margin-left: -6rem;
-        margin-top: -6rem;
-        background: $buttonHoverBackground;
-        border-radius: 100%;
-        transform: scale(0);
-        z-index: -1;
-        animation: btn-ripple 0.83s cubic-bezier(0.26, 0, 0.14, 0.99) forwards;
-        cursor: pointer;
-    }
-    &:active {
-        background: $buttonActiveBackground;
-        transform: scale(1);
-    }
-    &:focus {
-        outline: none;
-    }
+  }
+  &:active {
+    background: $buttonActiveBackground;
+    transform: scale(1);
+  }
+  &:focus {
+    outline: none;
+  }
 }
 
 @keyframes btn-ripple {
-    0% {
-        transform: scale(0.2);
-    }
-    100% {
-        transform: scale(5);
-    }
+  0% {
+    transform: scale(0.2);
+  }
+  100% {
+    transform: scale(5);
+  }
 }
 
 .tickerButtonLink {
-    a {
-        color: $buttonColor;
-        &:hover {
-            text-decoration: none;
-        }
+  a {
+    color: $buttonColor;
+    &:hover {
+      text-decoration: none;
     }
+  }
 }

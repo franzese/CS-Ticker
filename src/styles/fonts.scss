@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css?family=BioRhyme:700,800|Roboto+Mono:700&display=swap');
 
+code,
 body {
-    font-family: 'Roboto Mono', monospace;
+  font-family: 'Roboto Mono', monospace;
 }
 
 h1,
@@ -12,11 +13,20 @@ h5,
 h6,
 label,
 input,
-button {
-    font-family: 'BioRhyme', serif;
-    font-weight: 700;
+button,
+a {
+  font-family: 'BioRhyme', serif;
+  font-weight: 700;
 }
 
 h1 {
-    font-size: 6.4rem;
+  font-size: 6.4rem;
+}
+
+h2 {
+  font-size: 4.2rem;
+}
+
+h3 {
+  font-size: 3.8rem;
 }
