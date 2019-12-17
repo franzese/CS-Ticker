@@ -30,37 +30,37 @@ export const TickerRow = ({
   return (
     <a href={'/' + cusip} className={styles['tickerRow']}>
       <div className={styles['tickerRowMain']}>
-        <div>
-          <h2>
-            <code>{symbol}</code>
-          </h2>
-          <label>Symbol</label>
-        </div>
-        <div>
-          <h2>{getChangePercent()}</h2>
-          <label>Change</label>
-        </div>
-        <div>
+        <div className={styles['name']}>
           <h2>
             <code>{name}</code>
           </h2>
           <label>Name</label>
         </div>
+        <div className={styles['symbol']}>
+          <h2>
+            <code>{symbol}</code>
+          </h2>
+          <label>Symbol</label>
+        </div>
+        <div className={styles['change']}>
+          <h2>{getChangePercent()}</h2>
+          <label>Change</label>
+        </div>
       </div>
       <div className={styles['tickerRowStats']}>
-        <div>
+        <div className={styles['open']}>
           <code>{open.toFixed(fixedSize)}</code>
           <label>Open</label>
         </div>
-        <div>
+        <div className={styles['close']}>
           <code>{close.toFixed(fixedSize)}</code>
           <label>Close</label>
         </div>
-        <div>
+        <div className={styles['high']}>
           <code>{high.toFixed(fixedSize)}</code>
           <label>High</label>
         </div>
-        <div>
+        <div className={styles['low']}>
           <code>{low.toFixed(fixedSize)}</code>
           <label>Low</label>
         </div>

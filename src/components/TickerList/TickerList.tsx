@@ -68,12 +68,20 @@ export const TickerList = ({ cusip }: Props) => {
   const getList = () => {
     let list;
     if (loaded) {
-      list = (
-        <>
-          <div className={styles}>{stocks.map(mapStockToRow)}</div>
-          <TickerButton onClick={loadMore}>Load More</TickerButton>
-        </>
-      );
+      if (cusip) {
+        list = (
+          <>
+            <div className={styles}>{stocks.map(mapStockToRow)}</div>
+          </>
+        );
+      } else {
+        list = (
+          <>
+            <div className={styles}>{stocks.map(mapStockToRow)}</div>
+            <TickerButton onClick={loadMore}>Load More</TickerButton>
+          </>
+        );
+      }
     } else {
       list = <h4 className={'m-4'}>Loading...</h4>;
     }
