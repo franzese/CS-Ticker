@@ -15,6 +15,7 @@ interface Props {
   children: React.ReactNode;
   /** Children inside the button */
   link?: string;
+  className?: string;
   /** Button disabled state */
   isDisabled?: boolean;
   /** onClick behavior from parent to be used in @method handleClick */
@@ -31,6 +32,7 @@ export const TickerButton = ({
   buttonType = ButtonTypes.button,
   children,
   link,
+  className = '',
   isDisabled = false,
   onClick,
   ariaLabel,
@@ -76,7 +78,7 @@ export const TickerButton = ({
         b = (
           <button
             id={id}
-            className={styles['tickerButton']}
+            className={[styles['tickerButton'], className].join(' ')}
             data-testid={testId || 'TickerButton'}
             disabled={isDisabled}
             onClick={handleClick}
@@ -93,7 +95,7 @@ export const TickerButton = ({
           <>
             <button
               id={id}
-              className={styles['tickerButtonDropdown']}
+              className={[styles['tickerButtonDropdown'], className].join(' ')}
               data-testid={testId || 'TickerButton'}
               disabled={isDisabled}
               onClick={handleClick}
@@ -112,7 +114,7 @@ export const TickerButton = ({
           <Link
             id={id}
             to={link}
-            className={styles['tickerButtonLink']}
+            className={[styles['tickerButtonLink'], className].join(' ')}
             data-testid={testId || 'TickerButton'}
             disabled={isDisabled}
             onClick={handleClick}
@@ -123,6 +125,8 @@ export const TickerButton = ({
             {children}
           </Link>
         );
+        break;
+      default:
         break;
     }
     return b;

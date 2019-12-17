@@ -4,7 +4,9 @@ import TickerRow from 'src/components/TickerRow/TickerRow';
 import TickerButton from 'src/components/TickerButton/TickerButton';
 import getStockData, { getStock } from 'src/services/Services';
 
-const styles = require('./TickerList.module.scss')['tickerList'];
+const styles = require('./TickerList.module.scss');
+const stylesList = styles['tickerList'];
+const stylesScroll = styles['scrollToTop'];
 
 interface Props {
   cusip?: string;
@@ -45,6 +47,14 @@ export const TickerList = ({ cusip }: Props) => {
     );
   };
 
+  const scrollToTop = () => {
+    document.body.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  };
+
   const loadMore = () => {
     getStocks();
   };
@@ -60,7 +70,6 @@ export const TickerList = ({ cusip }: Props) => {
           console.log(error);
         });
     } else {
-      window.addEventListener('scroll', loadMore);
       getStocks();
     }
   }, []);
@@ -71,14 +80,17 @@ export const TickerList = ({ cusip }: Props) => {
       if (cusip) {
         list = (
           <>
-            <div className={styles}>{stocks.map(mapStockToRow)}</div>
+            <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
           </>
         );
       } else {
         list = (
           <>
-            <div className={styles}>{stocks.map(mapStockToRow)}</div>
+            <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
             <TickerButton onClick={loadMore}>Load More</TickerButton>
+            <TickerButton className={stylesScroll} onClick={scrollToTop}>
+              Back to Top
+            </TickerButton>
           </>
         );
       }
