@@ -10,7 +10,7 @@ import TickerList from 'src/components/TickerList/TickerList';
 function Home() {
   const [sortType, setSortType] = useState('name');
 
-  const sortChange = event => {
+  const sortChange = (event: any) => {
     setSortType(event.target.value);
   };
 
@@ -23,7 +23,7 @@ function Home() {
           buttonType={ButtonTypes.dropdown}
           onChange={sortChange}
           defaultSort={sortType}
-          ariaLabel={'Sort stocks by these options'}
+          ariaLabel="Sort stocks by these options"
         >
           Sort
         </TickerButton>
@@ -33,27 +33,24 @@ function Home() {
   );
 }
 
-function Details(props) {
+function Details(props: any) {
   return (
     <>
       <TickerNav navType={NavTypes.details} />
       <TickerWrap>
-        <TickerList cusip={props.match.params['cusip']} />
+        <TickerList cusip={props.match.params.cusip} />
       </TickerWrap>
     </>
   );
 }
 
-function FourOhFour(props) {
+function FourOhFour() {
   return (
     <>
       <TickerNav navType={NavTypes.details} />
       <TickerWrap>
         <h1>Sorry, that stock was not found</h1>
-        <TickerButton
-          buttonType={ButtonTypes.link}
-          aria-label={'Return to Home'}
-        >
+        <TickerButton buttonType={ButtonTypes.link} aria-label="Return to Home">
           <Link to="/">Back</Link>
         </TickerButton>
       </TickerWrap>

@@ -8,8 +8,8 @@ const styles = require('./TickerNav.module.scss');
 afterEach(cleanup);
 
 describe('The TickerNav component', () => {
-    it('uses a native <header/> with nested text to render', () => {
-        const { container } = render(<TickerNav navType={NavTypes.home}>test</TickerNav>);
-        expect(container.querySelector('header')).toHaveTextContent('test');
-    });
+  it('uses a native <header/> to render', () => {
+    const { container } = render(<TickerNav navType={NavTypes.home} />);
+    expect(container).toContainHTML('header');
+  });
 });
