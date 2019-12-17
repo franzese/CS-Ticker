@@ -53,6 +53,7 @@ export const TickerList = ({ cusip }: Props) => {
     if (cusip) {
       getStock(cusip)
         .then(data => {
+          setLoaded(true);
           setStocks([data]);
         })
         .catch(error => {
