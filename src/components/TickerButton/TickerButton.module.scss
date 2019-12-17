@@ -79,3 +79,21 @@ $fontWeight: 500;
     }
   }
 }
+
+.tickerButtonDropdown {
+  position: relative;
+}
+
+.tickerDropDown {
+  height: $inputHeight;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  outline: none;
+  font-size: $inputFontSize;
+  appearance: none;
+  border-radius: $borderRadius;
+  padding: 0 1rem;
+  opacity: 0;
+}

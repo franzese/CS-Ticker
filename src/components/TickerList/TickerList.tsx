@@ -1,5 +1,4 @@
-import * as React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TickerRow from 'src/components/TickerRow/TickerRow';
 import TickerButton from 'src/components/TickerButton/TickerButton';
 import getStockData, { getStock } from 'src/services/Services';
@@ -10,21 +9,21 @@ const stylesScroll = styles['scrollToTop'];
 
 interface Props {
   cusip?: string;
+  sortBy?: string;
 }
 
-export const TickerList = ({ cusip }: Props) => {
+export const TickerList = ({ cusip, sortBy }: Props) => {
   const limit = 50;
   const [count, setCount] = useState(0);
   const [stocks, setStocks] = useState([]);
   const [loaded, setLoaded] = useState(false);
-  const [sortType, setSortType] = useState('name');
+  const [sortType, setSortType] = useState(sortBy);
 
-  const getStocks = () => {
-    getStockData(limit, count, 'name')
+  const getStocks = (currentCount = count, currentSortType = sortType) => {
+    getStockData(limit, currentCount, currentSortType)
       .then(data => {
         setLoaded(true);
         setCount(count + data.stocks.length);
-        // alert(`Count: ${count + data.stocks.length}`);
         setStocks(stocks.concat(data.stocks));
       })
       .catch(error => {
@@ -55,12 +54,19 @@ export const TickerList = ({ cusip }: Props) => {
     });
   };
 
-  const loadMore = () => {
-    getStocks();
+  const clearStocks = () => {
+    setStocks([]);
+    setCount(0);
   };
 
   useEffect(() => {
-    if (cusip) {
+    if (sortType != sortBy) {
+      setSortType(sortBy);
+      setCount(0);
+      setLoaded(false);
+      setStocks([]);
+      // getStocks(0, sortBy);
+    } else if (cusip) {
       getStock(cusip)
         .then(data => {
           setLoaded(true);
@@ -72,9 +78,9 @@ export const TickerList = ({ cusip }: Props) => {
     } else {
       getStocks();
     }
-  }, []);
+  }, [cusip, sortBy, sortType]);
 
-  const getList = () => {
+  const renderList = () => {
     let list;
     if (loaded) {
       if (cusip) {
@@ -87,7 +93,7 @@ export const TickerList = ({ cusip }: Props) => {
         list = (
           <>
             <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
-            <TickerButton onClick={loadMore}>Load More</TickerButton>
+            <TickerButton onClick={getStocks}>Load More</TickerButton>
             <TickerButton className={stylesScroll} onClick={scrollToTop}>
               Back to Top
             </TickerButton>
@@ -100,7 +106,7 @@ export const TickerList = ({ cusip }: Props) => {
     return list;
   };
 
-  return getList();
+  return renderList();
 };
 
 export default TickerList;

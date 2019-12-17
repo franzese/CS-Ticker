@@ -1,5 +1,6 @@
-import * as React from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
+
 const styles = require('./TickerButton.module.scss');
 
 export enum ButtonTypes {
@@ -9,22 +10,16 @@ export enum ButtonTypes {
 }
 
 interface Props {
-  /** Type of button to be styled on instantiation in case switch block */
   buttonType?: ButtonTypes;
-  /** Children inside the button */
   children: React.ReactNode;
-  /** Children inside the button */
   link?: string;
   className?: string;
-  /** Button disabled state */
   isDisabled?: boolean;
-  /** onClick behavior from parent to be used in @method handleClick */
   onClick?: any;
-  /** Aria label for the button */
+  onChange?: any;
+  defaultSort?: string;
   ariaLabel?: string;
-  /** testId to be used when creating tests */
   testId?: string;
-  /** Id to be used for testing and other various tasks */
   id?: string;
 }
 
@@ -35,6 +30,8 @@ export const TickerButton = ({
   className = '',
   isDisabled = false,
   onClick,
+  onChange,
+  defaultSort,
   ariaLabel,
   testId,
   id
@@ -44,32 +41,38 @@ export const TickerButton = ({
    */
   const buttonRef: React.RefObject<any> = React.createRef();
 
-  /**
-   * @description Click handler that will wrap @prop {function} onClick and trigger animation for all browsers.
-   */
-  const handleClick = () => {
+  const handleClick = event => {
     if (onClick != null) {
-      onClick();
+      onClick(event);
     }
-    /** In the case of repeated button clicks, blur buttonRef before triggering focus for animation */
-    buttonRef.current.blur();
-    buttonRef.current.focus();
   };
 
-  let dropdown;
-  if (buttonType == ButtonTypes.dropdown) {
-    dropdown = (
-      <select>
-        <option>ONE</option>
-        <option>TWO</option>
-        <option>THREE</option>
-        <option>FOUR</option>
-        <option>FIVE</option>
+  const handleChange = event => {
+    if (onChange != null) {
+      onChange(event);
+    }
+  };
+
+  const renderDropdown = () => {
+    return (
+      <select
+        onChange={handleChange}
+        aria-label={ariaLabel}
+        className={styles['tickerDropDown']}
+        defaultValue={defaultSort}
+      >
+        <option value="name">Name</option>
+        <option value="symbol">Symbol</option>
+        <option value="cusip">CUSIP</option>
+        <option value="isin">ISIN</option>
+        <option value="open">Opening Price</option>
+        <option value="close">Closing Price</option>
+        <option value="high">Highest Price</option>
+        <option value="low">Lowest Price</option>
+        <option value="change">Price Change</option>
       </select>
     );
-  } else {
-    dropdown = false;
-  }
+  };
 
   const renderButton = () => {
     let b;
@@ -98,14 +101,12 @@ export const TickerButton = ({
               className={[styles['tickerButtonDropdown'], className].join(' ')}
               data-testid={testId || 'TickerButton'}
               disabled={isDisabled}
-              onClick={handleClick}
-              aria-label={ariaLabel}
               type={'button'}
               ref={buttonRef}
             >
               {children}
+              {renderDropdown()}
             </button>
-            {dropdown}
           </>
         );
         break;
