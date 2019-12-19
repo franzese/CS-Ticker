@@ -14,6 +14,7 @@ interface Props {
 
 export const TickerList = ({ cusip, sortBy }: Props) => {
   const limit = 50;
+  const isDetailView = !!cusip;
   const [count, setCount] = useState(0);
   const [stocks, setStocks] = useState([]);
   const [loaded, setLoaded] = useState(false);
@@ -34,6 +35,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
   const mapStockToRow = (s, i) => {
     return (
       <TickerRow
+        isDetailView={isDetailView}
         key={i}
         name={s.name}
         symbol={s.symbol}
@@ -65,8 +67,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
       setCount(0);
       setLoaded(false);
       setStocks([]);
-      // getStocks(0, sortBy);
-    } else if (cusip) {
+    } else if (isDetailView) {
       getStock(cusip)
         .then(data => {
           setLoaded(true);

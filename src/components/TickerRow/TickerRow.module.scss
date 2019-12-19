@@ -1,26 +1,36 @@
 @import 'src/styles/variables.scss';
 @import 'src/styles/breakpoints.scss';
 
+.tickerRowNoHover,
 .tickerRow {
   border-radius: $borderRadius;
   background-color: $liteg;
   border-right: 1rem solid $liteg;
-  border-left: 1rem solid $liteg;
+  border-left: 1rem solid $violet;
   margin-bottom: 2rem;
   padding: 2rem 1rem;
   display: block;
+  color: $gray;
 
   &:hover {
     cursor: pointer;
     text-decoration: none;
-    border-color: $pink;
+    background-color: $violet;
+    border-color: $violet;
+
+    h3,
+    code,
+    h4,
+    label {
+      color: white;
+    }
   }
 
   h3,
   code,
   h4,
   label {
-    color: $gray;
+    color: inherit;
     display: block;
     white-space: nowrap;
     overflow: hidden;
@@ -78,5 +88,19 @@
     @include md {
       grid-template-columns: 25% 25% 25% 25%;
     }
+  }
+}
+
+.tickerRowNoHover:hover {
+  cursor: initial;
+  background-color: $liteg;
+  border-right: 1rem solid $liteg;
+  border-left: 1rem solid $violet;
+
+  h3,
+  code,
+  h4,
+  label {
+    color: $gray;
   }
 }
