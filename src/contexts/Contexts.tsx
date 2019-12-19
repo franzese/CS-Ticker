@@ -8,7 +8,7 @@ interface ContextProviderProps {
 }
 
 export const TickerContextProvider = (props: ContextProviderProps) => {
-  const [searchString, setSearchString] = useState('Yoo');
+  const [searchString, setSearchString] = useState('');
 
   return (
     <TickerContext.Provider

@@ -35,19 +35,25 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
   };
 
   const mapStockToRow = (s, i) => {
-    return (
-      <TickerRow
-        isDetailView={isDetailView}
-        key={i}
-        name={s.name}
-        symbol={s.symbol}
-        cusip={s.cusip}
-        open={s.open}
-        close={s.close}
-        high={s.high}
-        low={s.low}
-      />
-    );
+    if (
+      !context.searchString ||
+      s.symbol.toUpperCase().search(context.searchString) >= 0
+    ) {
+      return (
+        <TickerRow
+          isDetailView={isDetailView}
+          key={i}
+          name={s.name}
+          symbol={s.symbol}
+          cusip={s.cusip}
+          open={s.open}
+          close={s.close}
+          high={s.high}
+          low={s.low}
+        />
+      );
+    }
+    return;
   };
 
   const scrollToTop = () => {
@@ -81,7 +87,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
     } else {
       getStocks();
     }
-  }, [cusip, sortBy, sortType]);
+  }, [cusip, sortBy, sortType, context.searchString]);
 
   const renderList = context => {
     let list;
@@ -95,7 +101,6 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
       {
         list = (
           <>
-            <h1>{context.searchString}</h1>
             <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
             <TickerButton onClick={getStocks}>Load More</TickerButton>
             <TickerButton className={stylesScroll} onClick={scrollToTop}>
