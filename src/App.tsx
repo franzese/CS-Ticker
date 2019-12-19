@@ -39,10 +39,12 @@ function Home() {
 function Details(props: any) {
   return (
     <>
-      <TickerNav navType={NavTypes.details} />
-      <TickerWrap>
-        <TickerList cusip={props.match.params.cusip} />
-      </TickerWrap>
+      <TickerContextProvider>
+        <TickerNav navType={NavTypes.details} />
+        <TickerWrap>
+          <TickerList cusip={props.match.params.cusip} />
+        </TickerWrap>
+      </TickerContextProvider>
     </>
   );
 }
