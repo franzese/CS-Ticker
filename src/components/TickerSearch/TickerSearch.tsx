@@ -1,17 +1,32 @@
-import * as React from 'react';
+import React, { useContext } from 'react';
+import TickerContext from 'src/contexts/Contexts';
 
-const styles = require('./TickerSearch.module.scss')['tickerSearch'];
+const styles = require('./TickerSearch.module.scss').tickerSearch;
 
-interface Props {
-    children?: React.ReactNode;
-}
+export const TickerSearch = () => {
+  const context = useContext(TickerContext);
+  const handleChange = event => {
+    let searchString = (event.target.value as string).toUpperCase();
+    context.setSearchString(searchString);
+  };
 
-export const TickerSearch = ({ children }: Props) => {
-    return (
-        <form className={styles}>
-            <input type={'text'} placeholder={'Search'} />
-        </form>
-    );
+  return (
+    <>
+      <TickerContext.Consumer>
+        {context => (
+          <form className={styles}>
+            <input
+              type={'search'}
+              pattern={'[A-Za-z]'}
+              placeholder={'Symbol Search'}
+              onChange={handleChange}
+              value={context.searchString}
+            />
+          </form>
+        )}
+      </TickerContext.Consumer>
+    </>
+  );
 };
 
 export default TickerSearch;

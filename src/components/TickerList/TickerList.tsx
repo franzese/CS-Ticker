@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import TickerRow from 'src/components/TickerRow/TickerRow';
 import TickerButton from 'src/components/TickerButton/TickerButton';
+import TickerContext from 'src/contexts/Contexts';
 import getStockData, { getStock } from 'src/services/Services';
 
 const styles = require('./TickerList.module.scss');
@@ -19,6 +20,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
   const [stocks, setStocks] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [sortType, setSortType] = useState(sortBy);
+  const context = useContext(TickerContext);
 
   const getStocks = (currentCount = count, currentSortType = sortType) => {
     getStockData(limit, currentCount, currentSortType)
@@ -81,18 +83,19 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
     }
   }, [cusip, sortBy, sortType]);
 
-  const renderList = () => {
+  const renderList = context => {
     let list;
-    if (loaded) {
-      if (cusip) {
+    if (loaded && isDetailView) {
+      list = (
+        <>
+          <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
+        </>
+      );
+    } else if (loaded && !isDetailView) {
+      {
         list = (
           <>
-            <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
-          </>
-        );
-      } else {
-        list = (
-          <>
+            <h1>{context.searchString}</h1>
             <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
             <TickerButton onClick={getStocks}>Load More</TickerButton>
             <TickerButton className={stylesScroll} onClick={scrollToTop}>
@@ -107,7 +110,11 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
     return list;
   };
 
-  return renderList();
+  return (
+    <TickerContext.Consumer>
+      {context => renderList(context)}
+    </TickerContext.Consumer>
+  );
 };
 
 export default TickerList;

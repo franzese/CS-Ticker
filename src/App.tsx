@@ -6,6 +6,7 @@ import TickerButton, {
 import TickerNav, { NavTypes } from 'src/components/TickerNav/TickerNav';
 import TickerWrap from 'src/components/TickerWrap/TickerWrap';
 import TickerList from 'src/components/TickerList/TickerList';
+import TickerContext, { TickerContextProvider } from 'src/contexts/Contexts';
 
 function Home() {
   const [sortType, setSortType] = useState('name');
@@ -16,19 +17,21 @@ function Home() {
 
   return (
     <>
-      <TickerNav navType={NavTypes.home} />
-      <TickerWrap>
-        <h1>Stocks</h1>
-        <TickerButton
-          buttonType={ButtonTypes.dropdown}
-          onChange={sortChange}
-          defaultSort={sortType}
-          ariaLabel="Sort stocks by these options"
-        >
-          Sort
-        </TickerButton>
-        <TickerList sortBy={sortType} />
-      </TickerWrap>
+      <TickerContextProvider>
+        <TickerNav navType={NavTypes.home} />
+        <TickerWrap>
+          <h1>Stocks</h1>
+          <TickerButton
+            buttonType={ButtonTypes.dropdown}
+            onChange={sortChange}
+            defaultSort={sortType}
+            ariaLabel="Sort stocks by these options"
+          >
+            Sort
+          </TickerButton>
+          <TickerList sortBy={sortType} />
+        </TickerWrap>
+      </TickerContextProvider>
     </>
   );
 }
