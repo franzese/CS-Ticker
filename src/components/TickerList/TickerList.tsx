@@ -87,7 +87,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
     } else {
       getStocks();
     }
-  }, [cusip, sortBy, sortType, context.searchString]);
+  }, [cusip, sortBy, sortType]);
 
   const renderList = context => {
     let list;
