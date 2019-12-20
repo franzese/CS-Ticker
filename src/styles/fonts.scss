@@ -1,4 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=BioRhyme:700,800|Roboto+Mono:700&display=swap');
+$monofont: 'Roboto Mono', monospace;
+$headerfont: 'BioRhyme', Georgia, serif;
 
 code,
 body {
@@ -16,7 +18,7 @@ input,
 button,
 select,
 a {
-  font-family: 'BioRhyme', serif;
+  font-family: 'BioRhyme', Georgia, serif;
   font-weight: 700;
 }
 
