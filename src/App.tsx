@@ -17,21 +17,19 @@ function Home() {
 
   return (
     <>
-      <TickerContextProvider>
-        <TickerNav navType={NavTypes.home} />
-        <TickerWrap>
-          <h1>Stocks</h1>
-          <TickerButton
-            buttonType={ButtonTypes.dropdown}
-            onChange={sortChange}
-            defaultSort={sortType}
-            ariaLabel="Sort stocks by these options"
-          >
-            Sort
-          </TickerButton>
-          <TickerList sortBy={sortType} />
-        </TickerWrap>
-      </TickerContextProvider>
+      <TickerNav navType={NavTypes.home} />
+      <TickerWrap>
+        <h1>Stocks</h1>
+        <TickerButton
+          buttonType={ButtonTypes.dropdown}
+          onChange={sortChange}
+          defaultSort={sortType}
+          ariaLabel="Sort stocks by these options"
+        >
+          Sort
+        </TickerButton>
+        <TickerList sortBy={sortType} />
+      </TickerWrap>
     </>
   );
 }
@@ -39,12 +37,10 @@ function Home() {
 function Details(props: any) {
   return (
     <>
-      <TickerContextProvider>
-        <TickerNav navType={NavTypes.details} />
-        <TickerWrap>
-          <TickerList cusip={props.match.params.cusip} />
-        </TickerWrap>
-      </TickerContextProvider>
+      <TickerNav navType={NavTypes.details} />
+      <TickerWrap>
+        <TickerList cusip={props.match.params.cusip} />
+      </TickerWrap>
     </>
   );
 }
@@ -65,13 +61,15 @@ function FourOhFour() {
 
 function App() {
   return (
-    <BrowserRouter>
-      <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/not-found" exact component={FourOhFour} />
-        <Route path="/:cusip" component={Details} />
-      </Switch>
-    </BrowserRouter>
+    <TickerContextProvider>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/not-found" exact component={FourOhFour} />
+          <Route path="/:cusip" component={Details} />
+        </Switch>
+      </BrowserRouter>
+    </TickerContextProvider>
   );
 }
 
