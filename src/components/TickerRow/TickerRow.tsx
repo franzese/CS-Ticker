@@ -2,8 +2,8 @@ import * as React from 'react';
 
 const styles = require('./TickerRow.module.scss');
 
-interface Props {
-  isDetailView: boolean;
+export interface Stock {
+  isDetailView?: boolean;
   name: string;
   symbol: string;
   cusip: string;
@@ -22,7 +22,7 @@ export const TickerRow = ({
   close,
   high,
   low
-}: Props) => {
+}: Stock) => {
   const fixedSize = 2;
 
   const getChangePercent = () => {

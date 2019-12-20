@@ -18,7 +18,7 @@ export const TickerSearch = () => {
             <input
               type={'search'}
               pattern={'[A-Za-z]'}
-              placeholder={'Symbol Search'}
+              placeholder={'Search'}
               onChange={handleChange}
               value={context.searchString}
             />

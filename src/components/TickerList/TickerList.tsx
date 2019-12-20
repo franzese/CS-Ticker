@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import TickerRow from 'src/components/TickerRow/TickerRow';
+import TickerRow, { Stock } from 'src/components/TickerRow/TickerRow';
 import TickerButton from 'src/components/TickerButton/TickerButton';
 import TickerContext from 'src/contexts/Contexts';
 import getStockData, { getStock } from 'src/services/Services';
@@ -34,22 +34,27 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
       });
   };
 
-  const mapStockToRow = (s, i) => {
-    if (
-      !context.searchString ||
-      s.symbol.toUpperCase().search(context.searchString) >= 0
-    ) {
+  const searchSuccess = (stock: Stock) => {
+    const symbolMatch =
+      stock.symbol.toUpperCase().search(context.searchString) >= 0;
+    const nameMatch =
+      stock.name.toUpperCase().search(context.searchString) >= 0;
+    return symbolMatch || nameMatch;
+  };
+
+  const mapStockToRow = (stock: Stock, i) => {
+    if (!context.searchString || searchSuccess(stock)) {
       return (
         <TickerRow
           isDetailView={isDetailView}
           key={i}
-          name={s.name}
-          symbol={s.symbol}
-          cusip={s.cusip}
-          open={s.open}
-          close={s.close}
-          high={s.high}
-          low={s.low}
+          name={stock.name}
+          symbol={stock.symbol}
+          cusip={stock.cusip}
+          open={stock.open}
+          close={stock.close}
+          high={stock.high}
+          low={stock.low}
         />
       );
     }
