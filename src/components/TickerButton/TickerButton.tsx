@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { SortTypes } from 'src/services/Services';
 
 const styles = require('./TickerButton.module.scss');
 
@@ -53,6 +54,15 @@ export const TickerButton = ({
     }
   };
 
+  const toOption = (val, i) => {
+    const name = SortTypes[val].name;
+    return (
+      <option key={i} value={val}>
+        {name}
+      </option>
+    );
+  };
+
   const renderDropdown = () => {
     return (
       <select
@@ -61,15 +71,7 @@ export const TickerButton = ({
         className={styles['tickerDropDown']}
         defaultValue={defaultSort}
       >
-        <option value="name">Name</option>
-        <option value="symbol">Symbol</option>
-        <option value="cusip">CUSIP</option>
-        <option value="isin">ISIN</option>
-        <option value="open">Opening Price</option>
-        <option value="close">Closing Price</option>
-        <option value="high">Highest Price</option>
-        <option value="low">Lowest Price</option>
-        <option value="change">Price Change</option>
+        {Object.keys(SortTypes).map(toOption)}
       </select>
     );
   };

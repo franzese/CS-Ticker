@@ -22,8 +22,8 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
   const [sortType, setSortType] = useState(sortBy);
   const context = useContext(TickerContext);
 
-  const getStocks = (currentCount = count, currentSortType = sortType) => {
-    getStockData(limit, currentCount, currentSortType)
+  const getStocks = () => {
+    getStockData(limit, count, sortType)
       .then(data => {
         setLoaded(true);
         setCount(count + data.stocks.length);
@@ -103,7 +103,7 @@ export const TickerList = ({ cusip, sortBy }: Props) => {
           <>
             <div className={stylesList}>{stocks.map(mapStockToRow)}</div>
             <TickerButton onClick={getStocks}>Load More</TickerButton>
-            <TickerButton className={stylesScroll} onClick={scrollToTop}>
+            <TickerButton onClick={scrollToTop} className={stylesScroll}>
               Back to Top
             </TickerButton>
           </>
